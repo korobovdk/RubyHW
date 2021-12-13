@@ -6,7 +6,7 @@ class Dad
     @mood = 50
     @energy = 50
     @drunk = 50
-    @hangover = true
+    @hangover = false
     @desire_to_live = 0 
     puts "Спустя 20 лет батя " + @name + " вернулся с хлебом! Выглядит он не очень..." 
   end
@@ -42,6 +42,31 @@ class Dad
   passage_of_time
   end
   
+  def compliment
+    puts "Ты радуешь батю комплиментом и он аж сияет."
+    @mood += 5
+    passage_of_time
+  end
+  
+  def fishing
+    puts "Рыблабка с отцом что может быть лучше!"
+    @energy -=10
+    @mood += 10
+    @bellyfull -= 10
+    passage_of_time
+  end
+  
+  def fight
+    puts "Ты предложил бате поборться, походу он что-то сломал..."
+    @energy -= 15
+    @mood += 10
+    @health -= 7
+    passage_of_time
+  end
+  
+  
+
+    
   def watch_football
     puts "Ты решаешься побаловать батю и разрешаешь ему посмотреть футбол с пивом и пачкой кальмаров"
     @bellyfull += 2 
@@ -95,6 +120,21 @@ class Dad
     @drunk -= 10
     passage_of_time
   end 
+  
+  def help_list
+    puts  " 
+    1 - Полечить
+    2 - Покормить
+    3 - Прогуляться
+    4 - Посмотреть футбол 
+    5 - Дать задание
+    6 - Выйти на пробежку
+    7 - Уложить спать
+    8 - Сказать комплимент
+    9 - Сходить на рыбалку
+    10 - Побороться 
+    "
+  end
   
   
   private
@@ -186,12 +226,44 @@ class Dad
     if @hangover == true
       puts "У бати похмелье, помоги ему только говори тише..."
       @health -= 10
-    end 
+    end
 
     
   end
     
-end 
-dad = Dad.new("Аркадий")
-dad.put_to_bed
+end
+puts "Введите имя вашего бати:"
+name = gets.chomp
+dad = Dad.new(name)
+action = gets.chomp
+until action == 'exit' do
+    case action
+    when '1'
+        dad.heal
+    when '2'
+        dad.feed
+    when '3'
+        dad.walk
+    when '4'
+        dad.watch_football
+    when '5'
+        dad.tasks_for_dad
+    when '6'
+        dad.jogging
+    when '7'
+        dad.put_to_bed
+    when '8'
+        dad.compliment
+    when '9'
+        dad.fishing
+    when '10'
+        dad.fight
+    when "help"
+        dad.help_list
+    else
+        puts 'Введите номер действия:'
+    end
+    action = gets.chomp
+end
+
 
